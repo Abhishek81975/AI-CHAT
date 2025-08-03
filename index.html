@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini Chatbot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ✅ Main App Container -->
+  <div class="chat-frame">
+    <div class="header">
+      <h1>YOUR AI ASSISTANT</h1>
+    </div>
+
+    <div class="welcome-screen">
+      <div class="chat-box" id="chat-box"></div>
+      <div class="input-bar">
+        <input type="text" id="message-input" placeholder="Ask Gemini..." />
+        <div class="input-actions">
+          <button id="send-btn" title="Send">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <template id="user-bubble-template">
+    <div class="message user-message">
+      <p class="query-text-line"></p>
+    </div>
+  </template>
+
+  <template id="bot-response-template">
+    <div class="message bot-message">
+      <p class="bot-text-line"></p>
+    </div>
+  </template>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
