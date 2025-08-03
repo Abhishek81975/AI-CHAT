@@ -9,13 +9,21 @@ input.addEventListener("keypress", function (e) {
   if (e.key === "Enter") sendMessage();
 });
 
+function scrollToBottom() {
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 function sendMessage() {
   const msg = input.value.trim();
   if (!msg) return;
+
+  if (document.getElementById("typing")) return;
+
   appendUserMessage(msg);
   socket.emit("user message", msg);
   input.value = "";
-  showTyping(); // ✅ Show typing while waiting
+  input.focus();
+  showTyping();
 }
 
 function appendUserMessage(message) {
@@ -23,11 +31,11 @@ function appendUserMessage(message) {
   const clone = template.content.cloneNode(true);
   clone.querySelector(".query-text-line").textContent = message;
   chatBox.appendChild(clone);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  scrollToBottom();
 }
 
 function appendBotResponse(response) {
-  removeTyping(); // ✅ Remove typing before appending response
+  removeTyping();
 
   const template = document.getElementById("bot-response-template");
   const clone = template.content.cloneNode(true);
@@ -43,29 +51,26 @@ function appendBotResponse(response) {
 
   clone.querySelector(".bot-text-line").textContent = cleaned;
   chatBox.appendChild(clone);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  scrollToBottom();
 }
 
 socket.on("bot reply", (reply) => {
   appendBotResponse(reply);
 });
 
-// ✅ Typing Indicator Functions
 function showTyping() {
   removeTyping();
 
   const typingBubble = document.createElement("div");
   typingBubble.className = "message bot-message typing-indicator";
   typingBubble.innerHTML = `
-    <div class="bot-bubble-content">
-      <span class="typing-dots">
-        <span></span><span></span><span></span>
-      </span>
+    <div class="typing-dots">
+      <span></span><span></span><span></span>
     </div>
   `;
   typingBubble.id = "typing";
   chatBox.appendChild(typingBubble);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  scrollToBottom();
 }
 
 function removeTyping() {

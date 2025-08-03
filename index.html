@@ -8,20 +8,16 @@
 </head>
 <body>
 
-  <!-- ✅ Main App Container -->
   <div class="chat-frame">
-    <div class="header">
-      <h1>YOUR AI ASSISTANT</h1>
-    </div>
+    <header class="header">
+      <h1>YOUR AI Assistant</h1>
+    </header>
 
-    <div class="welcome-screen">
-      <div class="chat-box" id="chat-box"></div>
-      <div class="input-bar">
-        <input type="text" id="message-input" placeholder="Ask Gemini..." />
-        <div class="input-actions">
-          <button id="send-btn" title="Send">➤</button>
-        </div>
-      </div>
+    <main class="chat-box" id="chat-box"></main>
+
+    <div class="input-bar">
+      <input type="text" id="message-input" placeholder="Ask something..." />
+      <button id="send-btn">➤</button>
     </div>
   </div>
 
